@@ -1,0 +1,61 @@
+{
+  "frameworks": [
+    {
+      "id": "nextjs",
+      "detect": [
+        "next",
+        "next.config.js",
+        "next.config.ts"
+      ],
+      "class": "react-web",
+      "recommended": [
+        "nextjs"
+      ]
+    },
+    {
+      "id": "react",
+      "detect": [
+        "react",
+        "vite.config.ts",
+        "vite.config.js"
+      ],
+      "class": "react-web",
+      "recommended": [
+        "react"
+      ]
+    },
+    {
+      "id": "vue",
+      "detect": [
+        "vue",
+        "vite.config.ts",
+        "vite.config.js"
+      ],
+      "class": "web",
+      "recommended": [
+        "web"
+      ]
+    },
+    {
+      "id": "svelte",
+      "detect": [
+        "svelte",
+        "svelte.config.js"
+      ],
+      "class": "web",
+      "recommended": [
+        "web"
+      ]
+    },
+    {
+      "id": "vanilla",
+      "detect": [
+        "index.html"
+      ],
+      "class": "web",
+      "recommended": [
+        "web"
+      ]
+    }
+  ]
+}
