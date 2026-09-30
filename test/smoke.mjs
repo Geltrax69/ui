@@ -1,0 +1,1 @@
+import assert from 'node:assert/strict';\nimport fs from 'node:fs';\nfor (const file of ['registry/skills.json','registry/profiles.json','registry/sources.json','registry/discovery.json']) { assert.ok(fs.existsSync(file), file); JSON.parse(fs.readFileSync(file,'utf8')); }\nconsole.log('ui registry smoke test passed');\n
