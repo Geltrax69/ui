@@ -1,9 +1,41 @@
 {
-  "name": "ui",
-  "version": "0.2.1",
+  "name": "@geltrax69/ui",
+  "version": "0.3.0",
   "description": "Intent-driven UI skill resolver and installer",
   "type": "module",
-  "bin": {"ui": "bin/ui.mjs"},
-  "scripts": {"test": "node test/smoke.mjs"},
-  "engines": {"node": ">=20"}
+  "bin": {
+    "ui": "bin/ui.mjs"
+  },
+  "files": [
+    "bin",
+    "registry",
+    "docs",
+    "README.md",
+    "CONTRIBUTING.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Geltrax69/ui.git"
+  },
+  "homepage": "https://github.com/Geltrax69/ui",
+  "bugs": {
+    "url": "https://github.com/Geltrax69/ui/issues"
+  },
+  "keywords": [
+    "ui",
+    "frontend",
+    "skills",
+    "ai",
+    "design",
+    "components",
+    "cli"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node test/smoke.mjs"
+  }
 }
