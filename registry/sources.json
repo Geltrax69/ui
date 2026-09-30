@@ -1,0 +1,258 @@
+{
+  "sources": [
+    {
+      "name": "Aceternity UI",
+      "url": "https://ui.aceternity.com/components",
+      "mode": "component-registry",
+      "capabilities": [
+        "hero",
+        "background",
+        "card",
+        "navigation",
+        "form",
+        "table",
+        "text-effects",
+        "cursor",
+        "3d"
+      ],
+      "search_terms": [
+        "hero",
+        "spotlight",
+        "3d card",
+        "background",
+        "text effect",
+        "navbar",
+        "bento"
+      ]
+    },
+    {
+      "name": "Magic UI",
+      "url": "https://magicui.design/docs/components",
+      "mode": "component-registry",
+      "capabilities": [
+        "hero",
+        "background",
+        "card",
+        "text-effects",
+        "navigation",
+        "animation"
+      ],
+      "search_terms": [
+        "marquee",
+        "animated list",
+        "sparkles",
+        "shimmer",
+        "dock",
+        "hero"
+      ]
+    },
+    {
+      "name": "Motion Primitives",
+      "url": "https://motion-primitives.com/docs/",
+      "mode": "component-registry",
+      "capabilities": [
+        "motion",
+        "text-animation",
+        "carousel",
+        "cursor",
+        "gesture"
+      ],
+      "search_terms": [
+        "text animation",
+        "scroll",
+        "magnetic",
+        "cursor",
+        "carousel",
+        "spring"
+      ]
+    },
+    {
+      "name": "Skecher UI",
+      "url": "https://skecher-ui.com/docs",
+      "mode": "component-registry",
+      "capabilities": [
+        "animation",
+        "text-effects",
+        "media",
+        "navigation",
+        "ai"
+      ],
+      "search_terms": [
+        "animated text",
+        "ai interface",
+        "media effect",
+        "navbar",
+        "card"
+      ]
+    },
+    {
+      "name": "UIArc",
+      "url": "https://uiarc.dev/components/",
+      "mode": "reference-library",
+      "capabilities": [
+        "components",
+        "landing",
+        "layout"
+      ],
+      "search_terms": [
+        "hero",
+        "pricing",
+        "features",
+        "testimonial",
+        "dashboard"
+      ]
+    },
+    {
+      "name": "Space UI",
+      "url": "https://www.spaceui.one/components",
+      "mode": "reference-library",
+      "capabilities": [
+        "3d",
+        "spatial",
+        "creative"
+      ],
+      "search_terms": [
+        "3d",
+        "orb",
+        "space",
+        "planet",
+        "glow"
+      ]
+    },
+    {
+      "name": "Uiverse",
+      "url": "https://uiverse.io/elements",
+      "mode": "source-library",
+      "capabilities": [
+        "buttons",
+        "inputs",
+        "cards",
+        "loaders",
+        "toggles"
+      ],
+      "search_terms": [
+        "button",
+        "input",
+        "loader",
+        "toggle",
+        "card",
+        "checkbox"
+      ]
+    },
+    {
+      "name": "UIAble",
+      "url": "https://uiable.com/components/",
+      "mode": "component-registry",
+      "capabilities": [
+        "blocks",
+        "dashboard",
+        "forms",
+        "tables",
+        "authentication"
+      ],
+      "search_terms": [
+        "dashboard",
+        "form",
+        "table",
+        "auth",
+        "profile",
+        "settings"
+      ]
+    },
+    {
+      "name": "MicroKit",
+      "url": "https://microkit.co",
+      "mode": "micro-interaction-library",
+      "capabilities": [
+        "micro-interactions"
+      ],
+      "search_terms": [
+        "hover",
+        "button",
+        "tooltip",
+        "menu",
+        "micro interaction"
+      ]
+    },
+    {
+      "name": "Liquid Glass",
+      "url": "https://glass.samasante.com",
+      "mode": "runtime-package",
+      "capabilities": [
+        "glass",
+        "refraction"
+      ],
+      "search_terms": [
+        "glass",
+        "refraction",
+        "liquid glass"
+      ]
+    },
+    {
+      "name": "Kinetics",
+      "url": "https://kinetics.colorion.co/#library",
+      "mode": "reference-library",
+      "capabilities": [
+        "motion",
+        "interaction"
+      ],
+      "search_terms": [
+        "spring",
+        "hover",
+        "drag",
+        "scroll",
+        "transition"
+      ]
+    },
+    {
+      "name": "Anime.js",
+      "url": "https://animejs.com/documentation",
+      "mode": "runtime-package",
+      "capabilities": [
+        "motion",
+        "timeline",
+        "svg"
+      ],
+      "search_terms": [
+        "timeline",
+        "svg",
+        "stagger",
+        "scroll",
+        "easing"
+      ]
+    },
+    {
+      "name": "Designeer",
+      "url": "https://www.designeer.xyz/",
+      "mode": "inspiration-library",
+      "capabilities": [
+        "inspiration",
+        "layout",
+        "branding"
+      ],
+      "search_terms": [
+        "saas",
+        "landing",
+        "editorial",
+        "dashboard",
+        "branding"
+      ]
+    },
+    {
+      "name": "UI Skills",
+      "url": "https://www.ui-skills.com/",
+      "mode": "skill-catalog",
+      "capabilities": [
+        "skills",
+        "frontend"
+      ],
+      "search_terms": [
+        "skill",
+        "frontend",
+        "design engineering",
+        "playwright",
+        "react"
+      ]
+    }
+  ]
+}
