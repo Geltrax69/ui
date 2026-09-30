@@ -1,227 +1,218 @@
 # ui
 
-Intent-driven UI skill resolver and installer.
+**One command to set up the UI skills your project actually needs.**
 
-## Use it
+## Run it
 
-### Right now — no Git clone
+From the root of any project:
 
-Run this from inside your project:
+```bash
+npx github:Geltrax69/ui
+```
 
-    npx github:Geltrax69/ui
+No clone is required.
 
-This fetches the CLI package directly from GitHub through npm's runner. You do not need to clone the repository into your project.
+Once `@geltrax69/ui` is published to npm, the shorter command will be:
 
-### Recommended public npm command
+```bash
+npx @geltrax69/ui
+```
 
-Once the package is published to npm:
+## What happens
 
-    npx @geltrax69/ui
+```text
+1. Detect project
+2. Detect installed AI/code agents
+3. Ask project type
+4. Ask visual direction
+5. Ask motion level
+6. Resolve the smallest useful skill set
+7. Install directly into the detected agent(s)
+```
 
-The command exposed by the package is still:
+The user should not have to answer which AI tool they use.
 
-    ui
+## Example
 
-The bare command:
+```text
+✓ Framework: unknown
+✓ Package manager: npm
+✓ Agents: codex, claude-code, cursor, cline, gemini-cli, github-copilot, opencode
 
-    npx ui
+What are you building?
+  1. Web app
+  2. SaaS / product
+  3. Dashboard / admin
+  4. Landing / marketing
+  5. E-commerce
+  6. Creative / experimental
+  7. Animation-heavy
 
-is not used because the npm package name `ui` is already owned by another package. npm currently lists that package as `ui` 0.2.4 from the old ui.js project. See the npm listing for details.
+Choose visual directions (multiple):
+  1. Minimal
+  2. Product / SaaS
+  3. Animated
+  4. Bold / Experimental
+  5. 3D / Spatial
+  6. Glass / Atmospheric
 
-## What happens when you run it
+Select: 3,4,6
 
-    $ npx @geltrax69/ui
+How much motion?
+  1. None
+  2. Subtle
+  3. Medium
+  4. Heavy
 
-    ui - UI setup wizard
-    Detected framework: nextjs
-    Detected package manager: pnpm
+Select: 3
+```
 
-    What are you building?
-      1. Web app
-      2. SaaS / product
-      3. Dashboard / admin
-      4. Landing / marketing
-      5. E-commerce
-      6. Creative / experimental
-      7. Animation-heavy
+Multiple selections are written as comma-separated numbers.
 
-    What should it feel like?
-      1. Minimal
-      2. Product / SaaS
-      3. Animated
-      4. Bold / Experimental
-      5. 3D / Spatial
-      6. Glass / Atmospheric
+## Automatic agent installation
 
-    How much motion?
-      1. None
-      2. Subtle
-      3. Medium
-      4. Heavy
+ui calls the Skills CLI with the detected targets instead of opening the Skills CLI agent picker.
 
-Then it resolves the setup.
+For example:
 
-For example, a Next.js + SaaS + Animated project can resolve to:
+```bash
+npx -y skills add LEONX/skill --skill name -a codex -a cursor -a claude-code -y
+```
 
-    Foundation
-      ✓ Impeccable
-      ✓ Design Taste Frontend
+The exact agent list is generated from the machine.
 
-    Design
-      ✓ Emil Design Engineering
-      ✓ Make Interfaces Feel Better
+Supported target identifiers include `codex`, `claude-code`, `cursor`, `cline`, `gemini-cli`, `github-copilot`, `windsurf`, and `opencode`. The Skills CLI documents `-a/--agent` and `-y/--yes` for targeted, non-interactive installs. 
 
-    React quality
-      ✓ React Doctor
+This removes the 73-agent picker seen in the previous version.
 
-    Browser QA
-      ✓ Playwright CLI
+## Impeccable
 
-    Motion
-      ✓ 12 Principles of Animation
+ui does **not** run the old bare:
 
-Nothing is installed until you confirm.
+```bash
+npx impeccable install
+```
 
-## How it auto-detects
+Instead it uses the shared Skills installer and targets the detected agents:
 
-ui checks the current project for:
+```bash
+npx -y skills add pbakaus/impeccable -a <detected-agent> -y
+```
 
-- package.json dependencies;
-- Next.js / React / Vue / Svelte / React Native / Expo;
-- npm / pnpm / yarn / bun lockfiles;
-- Tailwind;
-- an existing shadcn components.json.
+This avoids handing control back to Impeccable's provider picker. Impeccable also documents the Skills CLI route as a supported installation method. 
 
-If detection is clear, the framework is selected automatically.
+## Skill selection
 
-If it is unclear, ui asks you.
+Two foundation skills are always considered:
 
-## What it installs
+```text
+Impeccable
+Design Taste Frontend
+```
 
-### Always
+Then ui adds specialists only when their capabilities match the project:
 
-    npx impeccable install
-    npx skills add Leonxlnx/taste-skill --skill design-taste-frontend
+```text
+Emil Design Engineering
+Jakub Krehel / Better UI
+React Doctor
+Playwright CLI
+12 Principles of Animation
+```
 
-These are the foundation layer.
+For example:
 
-### Only when relevant
+```text
+Creative + Bold + Glass + Medium motion
 
-- Emil Design Engineering
-- Make Interfaces Feel Better
-- React Doctor
-- Playwright CLI
-- 12 Principles of Animation
+→ Impeccable
+→ Design Taste Frontend
+→ Emil Design Engineering
+→ Jakub Better UI
+→ 12 Principles of Animation
+```
 
-The resolver chooses these from project type, framework, visual direction, and motion level.
+React Doctor is added only when React/Next.js is detected.
 
-## What it does NOT install
+## No bulk UI-library downloads
 
-ui does not bulk-install UI ecosystems such as:
+Aceternity, Magic UI, Motion Primitives, Skecher UI, UIAble, Uiverse and similar sources are treated as component sources.
 
-- Aceternity UI
-- Magic UI
-- Motion Primitives
-- Skecher UI
-- UIAble
-- Uiverse
+ui does not download their entire libraries.
 
-Those are registered as component sources.
+Use:
 
-If you need:
+```bash
+npx @geltrax69/ui component "animated hero"
+```
 
-    animated hero
-
-ui searches the registered sources for that capability and tells the agent where to find an exact component.
-
-The intended flow is:
-
-    Need
-      ↓
-    Search
-      ↓
-    Select exact component
-      ↓
-    Install exact component
-      ↓
-    Install only its dependencies
-
-Not:
-
-    Download the whole library
+The resolver identifies relevant sources and their search vocabulary. The next step is to install the exact component you need.
 
 ## Inspiration
 
-Run:
+Use:
 
-    npx @geltrax69/ui inspire landing
+```bash
+npx @geltrax69/ui inspire landing
+npx @geltrax69/ui inspire creative
+```
 
-or:
+The output is focused on outcomes such as:
 
-    npx @geltrax69/ui inspire creative
+```text
+animated SaaS hero
+editorial typography
+bento feature section
+3D hero composition
+scroll storytelling
+ambient motion
+```
 
-This generates targeted searches such as:
+The workflow is:
 
-    product landing hero
-    bento feature section
-    editorial typography
-    scroll storytelling
-    3D hero composition
-    ambient background motion
+```text
+Reference
+→ extract design principle
+→ turn it into a requirement
+→ find implementation
+→ install exact component
+→ verify
+```
 
-The agent should study the reference for hierarchy, layout, typography, surfaces, interaction, motion, accessibility, responsiveness, and performance.
+## Safe defaults
 
-Then it converts the observation into an explicit design requirement before choosing an implementation.
+ui aims to be:
 
-## Component discovery
+- project-local by default;
+- agent-aware;
+- non-interactive inside downstream installers;
+- tolerant of optional skill failures;
+- minimal rather than "install everything".
 
-Examples:
+Every run writes:
 
-    npx @geltrax69/ui component "animated hero"
-    npx @geltrax69/ui component "3d card"
-    npx @geltrax69/ui component "glass navbar"
-    npx @geltrax69/ui component "dashboard table"
+```text
+.ui/profile.json
+```
 
-This command does not install anything. It identifies relevant sources and their search vocabulary.
+so the resolved setup can be inspected and reused.
 
-## Other commands
+## Debugging
 
-    npx @geltrax69/ui detect
-    npx @geltrax69/ui plan saas
-    npx @geltrax69/ui --dry-run
+Preview without installing:
 
-## Project record
+```bash
+npx github:Geltrax69/ui --dry-run
+```
 
-After a successful setup, ui writes:
+Detect the current project:
 
-    .ui/profile.json
+```bash
+npx github:Geltrax69/ui detect
+```
 
-This records the selected project type, style, motion level, detected framework, package manager, and resolved skills so later tooling can reuse the same configuration.
+## Current status
 
-## Architecture
+Experimental. The project-aware skill resolver is working; component-level automatic selection and browser-assisted visual verification are still being expanded.
 
-    Project
-      ↓
-    Detect framework
-      ↓
-    Ask project intent
-      ↓
-    Ask visual direction
-      ↓
-    Ask motion level
-      ↓
-    Resolve minimal skills
-      ↓
-    Install selected skills
-      ↓
-    Discover exact components when needed
-      ↓
-    Verify in the target project
-
-## Status
-
-Early development. The resolver and source registry are being expanded toward full project-aware component resolution and browser verification.
-
-Repository:
-
-https://github.com/Geltrax69/ui
+Repository: https://github.com/Geltrax69/ui
