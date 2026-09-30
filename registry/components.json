@@ -1,0 +1,15 @@
+{
+  "policy": {
+    "download": "Never bulk-download third-party UI libraries. Resolve an exact component/capability first.",
+    "install": "Prefer official registry/CLI commands. Preserve upstream attribution and license. Install only the requested component and its declared runtime dependencies.",
+    "inspiration": "Use reference sites to extract principles, not copy layouts or assets verbatim.",
+    "ranking": [
+      "framework compatibility",
+      "capability match",
+      "installation quality",
+      "accessibility",
+      "performance",
+      "visual fit"
+    ]
+  }
+}
