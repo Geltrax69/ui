@@ -1,0 +1,57 @@
+{
+  "discovery_queries": {
+    "web": [
+      "modern web app landing hero",
+      "responsive dashboard layout",
+      "pricing comparison UX",
+      "feature bento grid",
+      "empty loading error states",
+      "mobile navigation patterns",
+      "accessibility focus states"
+    ],
+    "landing": [
+      "product landing hero",
+      "editorial typography landing page",
+      "bento feature section",
+      "logo wall layout",
+      "testimonial composition",
+      "pricing section hierarchy",
+      "scroll storytelling"
+    ],
+    "saas": [
+      "SaaS dashboard information architecture",
+      "command palette UX",
+      "settings navigation",
+      "data table UX",
+      "onboarding flow",
+      "billing page UX",
+      "empty states"
+    ],
+    "dashboard": [
+      "admin dashboard grid",
+      "data dense table",
+      "filters and bulk actions",
+      "analytics card hierarchy",
+      "responsive sidebar",
+      "chart interaction patterns"
+    ],
+    "creative": [
+      "experimental web typography",
+      "kinetic landing page",
+      "spatial UI",
+      "scroll driven animation",
+      "cursor interaction",
+      "3D hero composition",
+      "ambient background motion"
+    ],
+    "ecommerce": [
+      "product detail page UX",
+      "collection grid",
+      "filter and sort UX",
+      "cart drawer",
+      "checkout form UX",
+      "reviews layout",
+      "product media gallery"
+    ]
+  }
+}
