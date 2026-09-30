@@ -1,115 +1,15 @@
 {
-  "version": "1.0",
-  "profiles": {
-    "all": {
-      "always": [
-        "impeccable",
-        "design-taste-frontend"
-      ],
-      "skills": []
-    },
-    "web": {
-      "always": [
-        "impeccable",
-        "design-taste-frontend"
-      ],
-      "skills": [
-        "emil-design-eng",
-        "make-interfaces-feel-better",
-        "playwright-cli"
-      ]
-    },
-    "react": {
-      "always": [
-        "impeccable",
-        "design-taste-frontend"
-      ],
-      "skills": [
-        "emil-design-eng",
-        "make-interfaces-feel-better",
-        "react-doctor",
-        "playwright-cli"
-      ]
-    },
-    "nextjs": {
-      "always": [
-        "impeccable",
-        "design-taste-frontend"
-      ],
-      "skills": [
-        "emil-design-eng",
-        "make-interfaces-feel-better",
-        "react-doctor",
-        "playwright-cli"
-      ]
-    },
-    "saas": {
-      "always": [
-        "impeccable",
-        "design-taste-frontend"
-      ],
-      "skills": [
-        "emil-design-eng",
-        "make-interfaces-feel-better",
-        "react-doctor",
-        "playwright-cli"
-      ]
-    },
-    "dashboard": {
-      "always": [
-        "impeccable",
-        "design-taste-frontend"
-      ],
-      "skills": [
-        "make-interfaces-feel-better",
-        "react-doctor",
-        "playwright-cli"
-      ]
-    },
-    "landing": {
-      "always": [
-        "impeccable",
-        "design-taste-frontend"
-      ],
-      "skills": [
-        "emil-design-eng",
-        "make-interfaces-feel-better",
-        "playwright-cli"
-      ]
-    },
-    "creative": {
-      "always": [
-        "impeccable",
-        "design-taste-frontend"
-      ],
-      "skills": [
-        "emil-design-eng",
-        "make-interfaces-feel-better",
-        "12-principles-of-animation",
-        "playwright-cli"
-      ]
-    },
-    "animation": {
-      "always": [
-        "impeccable",
-        "design-taste-frontend"
-      ],
-      "skills": [
-        "emil-design-eng",
-        "12-principles-of-animation",
-        "playwright-cli"
-      ]
-    },
-    "ecommerce": {
-      "always": [
-        "impeccable",
-        "design-taste-frontend"
-      ],
-      "skills": [
-        "emil-design-eng",
-        "make-interfaces-feel-better",
-        "playwright-cli"
-      ]
-    }
+  "version":"1.1",
+  "profiles":{
+    "all":{"always":["impeccable","design-taste-frontend"],"skills":[]},
+    "web":{"always":["impeccable","design-taste-frontend"],"skills":["emil-design-eng","jakub-better-ui","playwright-cli"]},
+    "react":{"always":["impeccable","design-taste-frontend"],"skills":["emil-design-eng","jakub-better-ui","react-doctor","playwright-cli"]},
+    "nextjs":{"always":["impeccable","design-taste-frontend"],"skills":["emil-design-eng","jakub-better-ui","react-doctor","playwright-cli"]},
+    "saas":{"always":["impeccable","design-taste-frontend"],"skills":["emil-design-eng","jakub-better-ui","react-doctor","playwright-cli"]},
+    "dashboard":{"always":["impeccable","design-taste-frontend"],"skills":["jakub-better-ui","react-doctor","playwright-cli"]},
+    "landing":{"always":["impeccable","design-taste-frontend"],"skills":["emil-design-eng","jakub-better-ui","playwright-cli"]},
+    "creative":{"always":["impeccable","design-taste-frontend"],"skills":["emil-design-eng","jakub-better-ui","12-principles-of-animation"]},
+    "animation":{"always":["impeccable","design-taste-frontend"],"skills":["emil-design-eng","12-principles-of-animation"]},
+    "ecommerce":{"always":["impeccable","design-taste-frontend"],"skills":["emil-design-eng","jakub-better-ui","playwright-cli"]}
   }
 }
