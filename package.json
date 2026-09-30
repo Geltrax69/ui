@@ -1,0 +1,9 @@
+{
+  "name": "ui",
+  "version": "0.2.1",
+  "description": "Intent-driven UI skill resolver and installer",
+  "type": "module",
+  "bin": {"ui": "bin/ui.mjs"},
+  "scripts": {"test": "node test/smoke.mjs"},
+  "engines": {"node": ">=20"}
+}
