@@ -1,0 +1,1 @@
+name: CI\n\non:\n  push:\n  pull_request:\n\nname: test\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: 20\n      - run: npm test\n
