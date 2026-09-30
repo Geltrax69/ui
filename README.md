@@ -1,43 +1,51 @@
 # ui
 
-**One command to set up the UI skills your project actually needs.**
+Intent-driven UI skill resolver for AI coding projects.
 
-## Run it
+## Run without cloning
 
-From the root of any project:
-
-```bash
-npx github:Geltrax69/ui
-```
-
-No clone is required.
-
-Once `@geltrax69/ui` is published to npm, the shorter command will be:
+Use this while you are inside your project:
 
 ```bash
-npx @geltrax69/ui
+npx -y github:Geltrax69/ui
 ```
 
-## What happens
+The GitHub repository is only the CLI source. It is not cloned into your project.
+
+After publishing the package to npm:
+
+```bash
+npx -y @geltrax69/ui
+```
+
+## What ui does
 
 ```text
-1. Detect project
-2. Detect installed AI/code agents
-3. Ask project type
-4. Ask visual direction
-5. Ask motion level
-6. Resolve the smallest useful skill set
-7. Install directly into the detected agent(s)
+Detect project
+   ↓
+Detect AI/code agents
+   ↓
+Ask project type
+   ↓
+Ask visual direction
+   ↓
+Ask motion level
+   ↓
+Resolve required skills
+   ↓
+Install only those skills
 ```
 
-The user should not have to answer which AI tool they use.
+It does not ask the user to select from dozens of AI agents. It detects common local agents and passes them directly to the Skills CLI with `-a` and `-y`. The Skills CLI supports targeted agent installation with `-a/--agent` and non-interactive installation with `-y/--yes`. citeturn825568search1turn490432search3
 
 ## Example
 
 ```text
-✓ Framework: unknown
-✓ Package manager: npm
-✓ Agents: codex, claude-code, cursor, cline, gemini-cli, github-copilot, opencode
+$ npx -y github:Geltrax69/ui
+
+✓ Framework: nextjs
+✓ Package manager: pnpm
+✓ Agents: codex, cursor
 
 What are you building?
   1. Web app
@@ -48,7 +56,7 @@ What are you building?
   6. Creative / experimental
   7. Animation-heavy
 
-Choose visual directions (multiple):
+Choose visual directions:
   1. Minimal
   2. Product / SaaS
   3. Animated
@@ -67,50 +75,18 @@ How much motion?
 Select: 3
 ```
 
-Multiple selections are written as comma-separated numbers.
+Multiple choices use comma-separated numbers.
 
-## Automatic agent installation
+## What gets installed
 
-ui calls the Skills CLI with the detected targets instead of opening the Skills CLI agent picker.
-
-For example:
-
-```bash
-npx -y skills add LEONX/skill --skill name -a codex -a cursor -a claude-code -y
-```
-
-The exact agent list is generated from the machine.
-
-Supported target identifiers include `codex`, `claude-code`, `cursor`, `cline`, `gemini-cli`, `github-copilot`, `windsurf`, and `opencode`. The Skills CLI documents `-a/--agent` and `-y/--yes` for targeted, non-interactive installs. 
-
-This removes the 73-agent picker seen in the previous version.
-
-## Impeccable
-
-ui does **not** run the old bare:
-
-```bash
-npx impeccable install
-```
-
-Instead it uses the shared Skills installer and targets the detected agents:
-
-```bash
-npx -y skills add pbakaus/impeccable -a <detected-agent> -y
-```
-
-This avoids handing control back to Impeccable's provider picker. Impeccable also documents the Skills CLI route as a supported installation method. 
-
-## Skill selection
-
-Two foundation skills are always considered:
+Foundation:
 
 ```text
 Impeccable
 Design Taste Frontend
 ```
 
-Then ui adds specialists only when their capabilities match the project:
+Conditional skills can include:
 
 ```text
 Emil Design Engineering
@@ -120,99 +96,125 @@ Playwright CLI
 12 Principles of Animation
 ```
 
-For example:
+The resolver does not install React Doctor unless React/Next.js is detected.
+
+## No duplicate agent prompts
+
+Instead of doing this:
 
 ```text
-Creative + Bold + Glass + Medium motion
-
-→ Impeccable
-→ Design Taste Frontend
-→ Emil Design Engineering
-→ Jakub Better UI
-→ 12 Principles of Animation
+npx skills add ...
+→ Which agents do you want?
+→ 73 agents...
 ```
 
-React Doctor is added only when React/Next.js is detected.
-
-## No bulk UI-library downloads
-
-Aceternity, Magic UI, Motion Primitives, Skecher UI, UIAble, Uiverse and similar sources are treated as component sources.
-
-ui does not download their entire libraries.
-
-Use:
+ui generates a command like:
 
 ```bash
-npx @geltrax69/ui component "animated hero"
+npx -y skills add Leonxlnx/taste-skill --skill design-taste-frontend   -a codex -a cursor -y
 ```
 
-The resolver identifies relevant sources and their search vocabulary. The next step is to install the exact component you need.
+The exact agent list comes from the machine.
+
+## Impeccable
+
+ui uses the Skills CLI route for Impeccable so it can target the same detected agents:
+
+```bash
+npx -y skills add pbakaus/impeccable -a codex -a cursor -y
+```
+
+This avoids opening Impeccable's separate provider picker. Impeccable documents both its own installer and the general Skills CLI installation route. citeturn448121search1turn825568search11
+
+## Current upstream fixes
+
+The registry is kept against the current upstream skill names.
+
+Jakub Krehel's repository currently contains `better-ui`, `better-interface`, `better-layout`, `better-typography`, and other skills; `make-interfaces-feel-better` is not an available skill name. citeturn490432search0
+
+The 12 Principles of Animation skill currently installs from `raphaelsalaja/skill`:
+
+```bash
+npx skills add https://github.com/raphaelsalaja/skill --skill 12-principles-of-animation
+```
+
+citeturn816529search2
+
+## Component libraries
+
+ui does not bulk-download:
+
+- Aceternity UI
+- Magic UI
+- Motion Primitives
+- Skecher UI
+- UIAble
+- Uiverse
+- Space UI
+- MicroKit
+- and similar libraries
+
+Instead:
+
+```text
+Need "animated hero"
+       ↓
+Find relevant sources
+       ↓
+Choose exact component
+       ↓
+Install exact component + dependencies
+```
 
 ## Inspiration
 
 Use:
 
 ```bash
-npx @geltrax69/ui inspire landing
-npx @geltrax69/ui inspire creative
+npx -y github:Geltrax69/ui inspire landing
+npx -y github:Geltrax69/ui inspire creative
 ```
 
-The output is focused on outcomes such as:
+The generated queries focus on outcomes, for example:
 
 ```text
 animated SaaS hero
-editorial typography
 bento feature section
+editorial typography
 3D hero composition
 scroll storytelling
 ambient motion
 ```
 
-The workflow is:
+The intended workflow is:
 
 ```text
 Reference
-→ extract design principle
+→ extract principle
 → turn it into a requirement
 → find implementation
 → install exact component
 → verify
 ```
 
-## Safe defaults
-
-ui aims to be:
-
-- project-local by default;
-- agent-aware;
-- non-interactive inside downstream installers;
-- tolerant of optional skill failures;
-- minimal rather than "install everything".
-
-Every run writes:
-
-```text
-.ui/profile.json
-```
-
-so the resolved setup can be inspected and reused.
-
 ## Debugging
 
 Preview without installing:
 
 ```bash
-npx github:Geltrax69/ui --dry-run
+npx -y github:Geltrax69/ui --dry-run
 ```
 
-Detect the current project:
+Detect the current project and agents:
 
 ```bash
-npx github:Geltrax69/ui detect
+npx -y github:Geltrax69/ui detect
 ```
 
-## Current status
+## Status
 
-Experimental. The project-aware skill resolver is working; component-level automatic selection and browser-assisted visual verification are still being expanded.
+Experimental. The project-aware skill resolver is functional. Exact component resolution and browser-assisted verification are still being expanded.
 
-Repository: https://github.com/Geltrax69/ui
+Repository:
+
+https://github.com/Geltrax69/ui
