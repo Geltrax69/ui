@@ -65,7 +65,7 @@ function detectAgents(cwd = process.cwd()) {
     ['windsurf', path.join(home, '.windsurf')],
     ['cline', path.join(home, '.cline')],
     ['gemini-cli', path.join(home, '.gemini')],
-    ['copilot', path.join(home, '.copilot')],
+    ['github-copilot', path.join(home, '.copilot')],
     ['opencode', path.join(home, '.config', 'opencode')],
   ];
   const found = candidates.filter(([, p]) => fs.existsSync(p)).map(([name]) => name);
@@ -92,9 +92,11 @@ function resolveSkillIds({ projectType, framework, style, motion }) {
   return dedupe(ids);
 }
 
-function runInstall(command) {
-  log('\n$ ' + command + '\n');
-  const result = spawnSync(command, { cwd: process.cwd(), stdio: 'inherit', shell: true });
+function runInstall(command, agents) {
+  const agentArgs = agents.length ? agents.map((agent) => ' -a ' + agent).join('') : '';
+  const finalCommand = command + agentArgs + ' -y';
+  log('\n$ ' + finalCommand + '\n');
+  const result = spawnSync(finalCommand, { cwd: process.cwd(), stdio: 'inherit', shell: true });
   if (result.error) return { ok: false, error: result.error.message };
   if (result.status !== 0) return { ok: false, error: 'exit code ' + result.status };
   return { ok: true };
@@ -145,16 +147,13 @@ async function interactive() {
     const motion = motionLabels.indexOf(await askOne(rl, 'How much motion?', motionLabels, primaryStyle === 'animated' || primaryStyle === '3d' ? 2 : 1));
     const motionValue = ['none', 'subtle', 'medium', 'heavy'][motion];
 
-    let framework = detected.framework;
-    if (framework === 'unknown') {
-      const frameworkValues = ['nextjs', 'react', 'vue', 'svelte', 'mobile-react-native', 'unknown'];
-      const frameworkLabels = ['Next.js', 'React', 'Vue', 'Svelte', 'React Native / Expo', 'Not sure'];
-      const selected = await askOne(rl, 'Which framework are you using?', frameworkLabels, 0);
-      framework = frameworkValues[frameworkLabels.indexOf(selected)];
-    }
-
+    const framework = detected.framework;
     const skillIds = resolveSkillIds({ projectType, framework, style: primaryStyle, motion: motionValue });
-    const selected = skillIds.map(skillById).filter(Boolean);
+    const webLike = ['web', 'react', 'nextjs'].includes(framework);
+    const effectiveSkillIds = webLike || projectType === 'web' || projectType === 'saas' || projectType === 'dashboard' || projectType === 'landing' || projectType === 'ecommerce'
+      ? skillIds
+      : skillIds.filter((id) => id !== 'playwright-cli');
+    const selected = effectiveSkillIds.map(skillById).filter(Boolean);
 
     log('\nResolved setup:');
     log('  Project:   ' + projectType);
@@ -180,7 +179,7 @@ async function interactive() {
 
     const failed = [];
     for (const skill of selected) {
-      const result = runInstall(skill.install);
+      const result = runInstall(skill.install, agents);
       if (!result.ok) {
         log('⚠ Could not install ' + skill.name + ' (' + result.error + '). Continuing with the rest.');
         failed.push({ id: skill.id, error: result.error });
