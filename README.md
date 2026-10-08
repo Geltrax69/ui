@@ -1,220 +1,81 @@
 # ui
 
-Intent-driven UI skill resolver for AI coding projects.
+> ## Status: 🟡 In Progress
+>
+> <progress value="60" max="100"></progress>
+> **Progress: 60%** — the CLI resolver itself works (`plan`, `inspire`, `component`, `detect` all verified against the registry), but the repo's own test and CI files are corrupted with escaped `\n` sequences, so `npm test` fails and CI is red on every push.
 
-## Run without cloning
+<p align="center">
+  <img src="docs/banner.webp" alt="ui banner" width="100%" />
+</p>
 
-Use this while you are inside your project:
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D20-339933?style=flat-square&logo=node.js)](https://nodejs.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+[![npm](https://img.shields.io/badge/npm-%40geltrax69%2Fui-CB3837?style=flat-square&logo=npm)](https://www.npmjs.com/package/@geltrax69/ui)
 
-```bash
-npx -y github:Geltrax69/ui
-```
+## What it is
 
-The GitHub repository is only the CLI source. It is not cloned into your project.
+`ui` is a zero-dependency Node.js CLI that helps AI coding agents set up frontend UI tooling. It detects your project's framework and AI agent, resolves which UI design skills to install from a curated JSON registry, and searches a component-source registry by intent (e.g. "animated hero") so the agent installs the smallest exact component instead of bulk-downloading whole libraries. It also ships an interactive setup wizard and research prompts for design inspiration.
 
-After publishing the package to npm:
+## What works (verified)
 
-```bash
-npx -y @geltrax69/ui
-```
+- ✅ `node bin/ui.mjs plan web` — prints an install plan of 5 skills (impeccable, design-taste-frontend, emil-design-eng, jakub-better-ui, playwright-cli)
+- ✅ `node bin/ui.mjs component "animated hero"` — ranked search across the 258-entry sources registry (Magic UI, Aceternity UI, …)
+- ✅ `node bin/ui.mjs inspire` — research prompts for web layouts
+- ✅ `node bin/ui.mjs detect` — detects framework, package manager, and AI agents in the current project (verified inside this repo: found `npm`, `codex`)
+- ✅ All registry JSON files (`skills`, `profiles`, `frameworks`, `components`, `sources`, `discovery`) parse as valid JSON
+- ❌ `npm test` does NOT work — `test/smoke.mjs` is corrupted (literal `\n` escapes make the whole file one line → `SyntaxError`)
+- ❌ CI does NOT pass — `.github/workflows/ci.yml` has the same corruption (single-line YAML), so all 5 recorded runs failed
+- ❌ Top-level `--dry-run` is advertised in the usage text but not parsed — `node bin/ui.mjs --dry-run` just prints usage; the flag only works inside the interactive wizard
 
-## What ui does
+## Tech stack
 
-```text
-Detect project
-   ↓
-Detect AI/code agents
-   ↓
-Ask project type
-   ↓
-Ask visual direction
-   ↓
-Ask motion level
-   ↓
-Resolve required skills
-   ↓
-Install only those skills
-```
+| Layer | Technology |
+|---|---|
+| CLI runtime | Node.js ≥ 20, ESM, zero dependencies |
+| Data | JSON registries: skills, profiles, frameworks, components, sources, discovery |
+| Docs | `docs/architecture.md`, `docs/inspiration.md`, `docs/source-adapters.md` |
 
-It does not ask the user to select from dozens of AI agents. It detects common local agents and passes them directly to the Skills CLI with `-a` and `-y`. The Skills CLI supports targeted agent installation with `-a/--agent` and non-interactive installation with `-y/--yes`. citeturn825568search1turn490432search3
+## How to run
 
-## Example
-
-```text
-$ npx -y github:Geltrax69/ui
-
-✓ Framework: nextjs
-✓ Package manager: pnpm
-✓ Agents: codex, cursor
-
-What are you building?
-  1. Web app
-  2. SaaS / product
-  3. Dashboard / admin
-  4. Landing / marketing
-  5. E-commerce
-  6. Creative / experimental
-  7. Animation-heavy
-
-Choose visual directions:
-  1. Minimal
-  2. Product / SaaS
-  3. Animated
-  4. Bold / Experimental
-  5. 3D / Spatial
-  6. Glass / Atmospheric
-
-Select: 3,4,6
-
-How much motion?
-  1. None
-  2. Subtle
-  3. Medium
-  4. Heavy
-
-Select: 3
-```
-
-Multiple choices use comma-separated numbers.
-
-## What gets installed
-
-Foundation:
-
-```text
-Impeccable
-Design Taste Frontend
-```
-
-Conditional skills can include:
-
-```text
-Emil Design Engineering
-Jakub Krehel / Better UI
-React Doctor
-Playwright CLI
-12 Principles of Animation
-```
-
-The resolver does not install React Doctor unless React/Next.js is detected.
-
-## No duplicate agent prompts
-
-Instead of doing this:
-
-```text
-npx skills add ...
-→ Which agents do you want?
-→ 73 agents...
-```
-
-ui generates a command like:
+All commands below were tested (Node v24).
 
 ```bash
-npx -y skills add Leonxlnx/taste-skill --skill design-taste-frontend   -a codex -a cursor -y
+# inside any project — no install needed
+node bin/ui.mjs plan web
+node bin/ui.mjs component "animated hero"
+node bin/ui.mjs inspire
+node bin/ui.mjs detect
+
+# interactive setup wizard (requires a TTY; writes .ui/profile.json)
+npx @geltrax69/ui
 ```
 
-The exact agent list comes from the machine.
+Do NOT run `npm test` expecting a pass — the smoke test file is corrupted (see above).
 
-## Impeccable
+## Screenshots
 
-ui uses the Skills CLI route for Impeccable so it can target the same detected agents:
+None — this is a CLI tool. The banner above is the visual.
 
-```bash
-npx -y skills add pbakaus/impeccable -a codex -a cursor -y
+## What you can add more
+
+- [ ] Fix `test/smoke.mjs` — replace the literal `\n` escapes with real newlines so `npm test` passes
+- [ ] Fix `.github/workflows/ci.yml` — same corruption; CI stays red on every push until repaired
+- [ ] Parse `--dry-run` as a top-level flag — usage advertises it, but only the interactive wizard honors it today
+- [ ] Extend test coverage — the smoke test only checks that registry files exist and parse; add assertions for the `plan`/`component`/`detect` subcommands
+
+## Project structure
+
+```
+bin/ui.mjs            the CLI: project/agent detection, skill profiles, component search,
+                      inspiration prompts, interactive wizard
+registry/             JSON registries: skills.json, profiles.json, frameworks.json,
+                      components.json, sources.json (258 entries), discovery.json
+docs/                 architecture.md, inspiration.md, source-adapters.md (+ banner)
+test/smoke.mjs        registry smoke test (currently broken — literal \n escapes)
+scripts/publish.sh    publish helper
+CONTRIBUTING.md       contributor notes
 ```
 
-This avoids opening Impeccable's separate provider picker. Impeccable documents both its own installer and the general Skills CLI installation route. citeturn448121search1turn825568search11
-
-## Current upstream fixes
-
-The registry is kept against the current upstream skill names.
-
-Jakub Krehel's repository currently contains `better-ui`, `better-interface`, `better-layout`, `better-typography`, and other skills; `make-interfaces-feel-better` is not an available skill name. citeturn490432search0
-
-The 12 Principles of Animation skill currently installs from `raphaelsalaja/skill`:
-
-```bash
-npx skills add https://github.com/raphaelsalaja/skill --skill 12-principles-of-animation
-```
-
-citeturn816529search2
-
-## Component libraries
-
-ui does not bulk-download:
-
-- Aceternity UI
-- Magic UI
-- Motion Primitives
-- Skecher UI
-- UIAble
-- Uiverse
-- Space UI
-- MicroKit
-- and similar libraries
-
-Instead:
-
-```text
-Need "animated hero"
-       ↓
-Find relevant sources
-       ↓
-Choose exact component
-       ↓
-Install exact component + dependencies
-```
-
-## Inspiration
-
-Use:
-
-```bash
-npx -y github:Geltrax69/ui inspire landing
-npx -y github:Geltrax69/ui inspire creative
-```
-
-The generated queries focus on outcomes, for example:
-
-```text
-animated SaaS hero
-bento feature section
-editorial typography
-3D hero composition
-scroll storytelling
-ambient motion
-```
-
-The intended workflow is:
-
-```text
-Reference
-→ extract principle
-→ turn it into a requirement
-→ find implementation
-→ install exact component
-→ verify
-```
-
-## Debugging
-
-Preview without installing:
-
-```bash
-npx -y github:Geltrax69/ui --dry-run
-```
-
-Detect the current project and agents:
-
-```bash
-npx -y github:Geltrax69/ui detect
-```
-
-## Status
-
-Experimental. The project-aware skill resolver is functional. Exact component resolution and browser-assisted verification are still being expanded.
-
-Repository:
-
-https://github.com/Geltrax69/ui
+---
+*README written after code audit on 2026-10-08.*
